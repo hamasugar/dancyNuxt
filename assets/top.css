@@ -1,0 +1,91 @@
+body {
+    width: 90%;
+    margin: 0 auto; }
+  
+  ::-webkit-scrollbar {
+    display: none;
+    -webkit-appearance: none; }
+  
+  .label {
+    position: sticky;
+    top: 0; }
+    .label__top {
+      width: 100%;
+      background-color: rgba(255, 136, 0, 0.8);
+      height: 80px;
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+      text-align: center;
+      /* margin-left: -5vw; */
+      line-height: 80px; }
+    .label__triangle {
+      width: 0;
+      height: 0;
+      margin: 0 auto;
+      border-top: 40px solid rgba(255, 136, 0, 0.8);
+      border-right: 40px solid transparent;
+      border-left: 40px solid transparent; }
+  
+  .buttons {
+    display: flex;
+    margin: 30px auto;
+    width: 50%;
+    height: 30px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly; }
+    .buttons__button {
+      display: block;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 136, 0, 0.8);
+      border-radius: 5px;
+      font-size: 1vw;
+      color: white;
+      line-height: 40px;
+      text-align: center; }
+  
+  .flexbox {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly; }
+    .flexbox__teacherbox {
+      background-color: rgba(211, 206, 197, 0.171);
+      width: 16vw;
+      height: 37vw;
+      margin-bottom: 30px;
+      border: 1px solid black;
+      border-radius: 20px; }
+    .flexbox__teacherbox:hover {
+      background-color: rgba(255, 136, 0, 0.8); }
+  
+  .teacher__img {
+    width: 100%;
+    height: 16vw;
+    border-radius: 20px 20px 0 0;
+    object-fit: cover; }
+  .teacher__name {
+    font-weight: bold;
+    margin-left: 2vw;
+    font-size: 1.5vw;
+    width: 80%;
+    margin-bottom: 40px; }
+  .teacher__info {
+    margin-left: 2vw;
+    font-size: 1vw;
+    line-height: 1vw;
+    width: 80%;
+    word-wrap: break-word; }
+  
+  @media all and (max-width: 700px) {
+    .flexbox__teacherbox {
+      width: 45%;
+      height: 65vw; }
+      .teacher__img {
+        height: 40vw; } }
+  
+  /*# sourceMappingURL=hosting2.css.map */
+  

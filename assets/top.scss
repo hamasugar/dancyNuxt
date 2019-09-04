@@ -1,0 +1,132 @@
+$orange-color: rgba(255, 136, 0, 0.8);
+$triangle-size: 40px;
+$teacher-width: 15vw;
+$teacher-height: 37vw;
+$button-height: 40px;
+$image-radius: 20px;
+
+
+body {
+    width: 90%;
+    margin: 0 auto;
+  }
+  
+  ::-webkit-scrollbar {
+    display: none;
+    -webkit-appearance: none;
+  } 
+  
+  .label {
+    position: sticky;
+    top: 0;
+
+    &__top {
+        width: 100vw;
+        background-color: $orange-color;
+        height: 80px;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        text-align: center;
+        margin-left: -5vw;
+        line-height: 80px;
+    }
+
+    &__triangle {
+        width: 0;
+        height: 0;
+        margin: 0 auto;
+        border-top: $triangle-size solid $orange-color;
+        border-right: $triangle-size solid transparent;
+        border-left: $triangle-size solid transparent;
+    }
+  }
+  
+  
+  .buttons {
+    display: flex;
+    margin: 30px auto;
+    width: 50%;
+    height: 30px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+
+    &__button {
+        display: block;
+        width: $button-height;
+        height: $button-height;
+        background-color: $orange-color;
+        border-radius: 5px;
+        font-size: 1vw;
+        color: white;
+        line-height: $button-height; 
+        text-align: center;
+    }
+  }
+  
+  
+  .flexbox {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    &__teacherbox {
+        background-color: rgba(211, 206, 197, 0.171);
+        width: $teacher-width;
+        height: $teacher-height;
+        margin-bottom: 30px;
+        border: 1px solid black;
+        border-radius: $image-radius;
+    }
+
+    &__teacherbox:hover {
+        background-color: $orange-color;
+
+    }
+
+  }
+
+  
+  .teacher {
+
+    &__img {
+        width: 100%;
+        height: $teacher-width;
+        border-radius: $image-radius $image-radius 0 0;
+        object-fit: cover;
+    }
+
+    &__name {
+        font-weight: bold;
+        margin-left: 2vw;
+        font-size: 1.5vw;
+        width: 80%;
+        margin-bottom: 40px;
+    }
+
+    &__info {
+        margin-left: 2vw;
+        font-size: 1vw;
+        line-height: 1vw;
+        width: 80%;
+        word-wrap: break-word;
+    }
+
+  }
+  
+  
+  @media all and (max-width: 700px) {
+    .teacher {
+      width: 45%;
+      height: 65vw;
+
+      &__img {
+        height: 40vw;
+      }
+    }
+
+  }
+  

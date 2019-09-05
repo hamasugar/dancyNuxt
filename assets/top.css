@@ -87,5 +87,59 @@ body {
       .teacher__img {
         height: 40vw; } }
   
+  .leftside {
+    width: 40%;
+    display: inline-block;
+  }
+
+  .leftside__name {
+    font-size: 30px;
+    font-weight: bold;
+    color: rgba(255, 136, 0, 0.8); 
+    margin: 20px auto
+  }
+
+  .leftside__img {
+    width: 90%;
+    height: 30vw;
+    object-fit: cover
+  }
+
+  .rightside {
+    width: 55%;
+    display: inline-block;
+    font-size: 0;
+    vertical-align: top;
+    padding-top: 100px
+  }
+
+  .info {
+    margin-bottom: 20px;
+  }
+
+  .info__key {
+    display: inline-block;
+    color: rgba(255, 136, 0, 0.8);
+    font-weight: bold;
+    width: 30%;
+    font-size: 20px;
+  }
+
+  .info__value {
+    display: inline-block;
+    width: 65%;
+    font-size: 20px;
+    
+  }
+
+  .comment {
+    font-size: 18px;
+    width: 100%;
+    margin:30px auto;
+
+  }
+  
+  
+  
   /*# sourceMappingURL=hosting2.css.map */
   

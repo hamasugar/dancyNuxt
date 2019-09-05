@@ -1,34 +1,42 @@
 <template>
   
   <div class="container">
-      <logo />
+      <!-- <logo />
       <p>{{teacherNumber}}</p>
       <p v-if="total < 5">{{total}}</p>
       <like message="apple"  @inc="incrementTotal"/>
       <div></div>
       <button @click="incvuex">+</button>
       <p>{{ vuexx }}</p>
+      <p>{{ counts }}</p> -->
+      <!-- ここに表示されるものと下に表示されるものはワンテンポ遅れがある　こっちの方が遅れている リクエストでとってきたものが次の更新でpタグに入ってきている storeはそもそもリアクティブではないのか -->
+      <p>{{datum2}}</p>
+      <p>aaaa</p>
+      <p>aaaa</p>
+      <p>{{datum3}}</p>
+      <p>aaaa</p>
+      <p>aaaa</p>
+      <p>{{datum4}}</p>
+      <p>{{countss}}</p>
+      <p>{{teacherNumber1}}</p>
 
       <div class="label">
-        <div class="label__top" v-on:click="loadTeacher()">講師一覧</div>
+        <div class="label__top">講師一覧</div>
         <div class="label__triangle"></div>
       </div>
 
-      
-      
-
       <div class="buttons" >
-        <button  class="buttons__button" v-for="j in 100" v-on:click = "changeTeacher(j-1)" v-if="datum['Items'] && datum['Items'][j*10 -10]">{{j}}</button>
+        <button  class="buttons__button" v-for="j in 100" v-on:click = "changeTeacher(j-1)" v-if="datum && datum[j*10 -10]">{{j}}</button>
       </div>
 
-      <div class="flexbox" v-if="datum['Items']">
+      <div class="flexbox" v-if="datum">
 
           
-          <div class="flexbox__teacherbox"  v-for="value in datum['Items'].slice(teacherNumber * 10, Math.min(teacherNumber * 10 + 10, count))" >
+          <div class="flexbox__teacherbox"  v-for="value in datum.slice(teacherNumber1 * 10, Math.min(teacherNumber1 * 10 + 10, countss))" >
 
             <div class="teacher">
                 <!-- <nuxt-link to="next"> -->
-                  <img class="teacher__img" v-bind:src="imgSrc(value['email'])" @click="goNext(value['email'])">
+                  <img class="teacher__img" v-bind:src="imgSrc(value['email'])" @click="goNext(value)">
                   <!-- <img class="teacher__img" src=""> -->
                   <p class="teacher__name">{{ value["nickName"] ? value["nickName"] + "先生" : "ゲスト講師"}}</p>
                   <p class="teacher__info">{{ '得意ジャンル:' + '\n'　 + value["able"] }}</p>
@@ -50,38 +58,26 @@
 <script>
 import Logo from '~/components/Logo.vue'
 import like from '~/components/Button.vue'
-import Vue from 'vue'
-import Vuex from 'vuex'
-Vue.use(Vuex)
-
-export const store = new Vuex.Store({
-  state: {
-    count: 0,
-    email: ""
-  },
-  mutations: {
-    increment: state => state.count++,
-    registerEmail (state, email) {
-      state.email = email
-    }
-  }
-})
-
+import {store} from '~/components/global.js'
 
 //exportのタイミングが悪いのかなー Swiftよりも難しいな
-export default {
+var defaultObject = {
   components: {
     Logo,
     like
   },
   data: function() {
     return {
-      teacherNumber: 0,
-      total: 0,
-      datum: [{'Items':[]}],
+      teacherNumber1: store.state.teacherNumber,
+      total: 10,
+      datum: store.state["valueAll"],
       isFirstPage: true,
       noImage: false,
-      vuex: 0
+      vuex: 0,
+      countss: store.state.counts,
+      datum2: store.state,
+      datum3: store.state.valueAll,
+      datum4: store.state["valueAll"]
     }
   },
   watch: {
@@ -96,33 +92,58 @@ export default {
 	      return store.state.count
       }
   },
+  mounted() {
+
+    console.log("mounted");
+    var request = new XMLHttpRequest();
+        
+        request.this = this
+        console.log(this);
+        request.open('GET',"https://3l3lsb42w0.execute-api.us-east-2.amazonaws.com/dev/teachershosting");
+        request.responseType = 'json';
+        request.onload = function () {
+          console.log(this);
+          // request.this.datum = this.response
+         
+          const aaaaa = this.response["Count"]
+          store.commit("registerAll",this.response["Items"])
+        };
+
+        // request.send();
+        if (store.state.pageTimes == 0) {
+          request.send();
+        }
+        
+  },
   methods: {
-      countUp: function() {
-        this.teacherNumber++;
-      },
       incrementTotal: function() {
         this.total++;
       },
       changeTeacher: function(i) {
-        this.noImage = true;
-        this.teacherNumber = i;
-        setTimeout(this.falseImage, 200);
+        // this.noImage = true;
+        // this.teacherNumber = i;
+        store.commit('saveTeacherNumber',i)
+        // setTimeout(this.falseImage, 200);
       },
       falseImage: function() {
         this.noImage = false;
       },
-      goNext: function(email) {
+      goNext: function(value) {
           // this.$router.push('next/?email  ='+email);
           //URLに表示されてしまうので隠す方法を知りたいね　これ以外の方法はないのか 
           //確実にteacherNameはグローバルを参照している　ローカルではない　変更もしているのになぜかーーー
           //変更がされる前のaaaが次の画面から参照されている
-          store.commit('registerEmail',email)
-          this.$router.push({ path: 'next', query: { email: email } });
+          store.commit('addpage');
+          store.commit('register',value);
+          // store.commit('saveTeacherNumber',this.teacherNumber)
+          // store.commit('registerAll',value);
+          this.$router.push('next');
           
       },
       imgSrc: function(email) {
+        console.log("email"+email)
         if (this.noImage) {
-          return "sample.png"
+          return "https://3l3lsb42w0.execute-api.us-east-2.amazonaws.com/dev/getimage?email=" + email + ".jpg";
         }
         else {
           return "https://3l3lsb42w0.execute-api.us-east-2.amazonaws.com/dev/getimage?email=" + email + ".jpg";
@@ -131,26 +152,12 @@ export default {
       },
       incvuex: function() {
         store.commit('increment')
-      },
-      loadTeacher: function() {
-        console.log("load");
-        //無理やりにでもthisを渡すことで関数内でもthisを使えるようにしましたよ
-        var request = new XMLHttpRequest();
-        request.key = this
-
-        request.open('GET',"https://3l3lsb42w0.execute-api.us-east-2.amazonaws.com/dev/teachershosting");
-        request.responseType = 'json';
-        request.onload = function () {
-          console.log(this.response);
-          console.log(this);
-          request.key.datum = this.response
-          request.key.count = this.response["Count"]
-        };
-        request.send();
       }
       
   }
 }
+//exportを必ず後に書かなくてはいけないよ　これがないとrenderできないと言うエラーが出る
+export default defaultObject
 
 
 </script>

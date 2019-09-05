@@ -9,17 +9,14 @@
       <button @click="incvuex">+</button>
       <p>{{ vuexx }}</p>
       <p>{{ counts }}</p> -->
-      <!-- ここに表示されるものと下に表示されるものはワンテンポ遅れがある　こっちの方が遅れている リクエストでとってきたものが次の更新でpタグに入ってきている storeはそもそもリアクティブではないのか -->
-      <p>{{datum2}}</p>
+      <!-- ここに表示されるものと下に表示されるものはワンテンポ遅れがある　こっちの方が遅れている リクエストでとってきたものが次の更新でpタグに入ってきている -->
+      <!-- <p>{{datum2}}</p>
       <p>aaaa</p>
       <p>aaaa</p>
       <p>{{datum3}}</p>
       <p>aaaa</p>
       <p>aaaa</p>
-      <p>{{datum4}}</p>
-      <p>{{countss}}</p>
-      <p>{{teacherNumber1}}</p>
-
+      <p>{{datum4}}</p> -->
       <div class="label">
         <div class="label__top">講師一覧</div>
         <div class="label__triangle"></div>
@@ -68,37 +65,32 @@ var defaultObject = {
   },
   data: function() {
     return {
-      teacherNumber1: store.state.teacherNumber,
       total: 10,
-      datum: store.state["valueAll"],
       isFirstPage: true,
       noImage: false,
       vuex: 0,
-      countss: store.state.counts,
       datum2: store.state,
       datum3: store.state.valueAll,
       datum4: store.state["valueAll"]
+
     }
   },
-  watch: {
-    datum: function() {
-      //JavaSctiptに使われるlocalStrageがあれば最強じゃないか　iOSと同じ仕組みが作れるのだ
-      localStorage.setItem('datum', JSON.stringify(this.datum));
-    }
-  },
+  // watch: {
+  //   datum: function() {
+  //     //JavaSctiptに使われるlocalStrageがあれば最強じゃないか　iOSと同じ仕組みが作れるのだ
+  //     localStorage.setItem('datum', JSON.stringify(this.datum));
+  //   }
+  // },
   computed: {
-      
-      vuexx() {
-	      return store.state.count
-      }
+    countss() { return store.state.counts },
+    datum() { return store.state.valueAll },
+    teacherNumber1() {return store.state.teacherNumber }
   },
   mounted() {
 
-    console.log("mounted");
     var request = new XMLHttpRequest();
         
         request.this = this
-        console.log(this);
         request.open('GET',"https://3l3lsb42w0.execute-api.us-east-2.amazonaws.com/dev/teachershosting");
         request.responseType = 'json';
         request.onload = function () {
@@ -120,10 +112,9 @@ var defaultObject = {
         this.total++;
       },
       changeTeacher: function(i) {
-        // this.noImage = true;
-        // this.teacherNumber = i;
+        this.noImage = true;
         store.commit('saveTeacherNumber',i)
-        // setTimeout(this.falseImage, 200);
+        setTimeout(this.falseImage, 200);
       },
       falseImage: function() {
         this.noImage = false;
@@ -141,7 +132,6 @@ var defaultObject = {
           
       },
       imgSrc: function(email) {
-        console.log("email"+email)
         if (this.noImage) {
           return "https://3l3lsb42w0.execute-api.us-east-2.amazonaws.com/dev/getimage?email=" + email + ".jpg";
         }

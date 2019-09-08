@@ -11,7 +11,8 @@ export const store = new Vuex.Store({
     valueAll:[],
     pageTimes: 0,
     counts: 0,
-    teacherNumber: 0
+    teacherNumber: 0,
+    loadedArray: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
   },
   mutations: {
     increment: state => state.count++,
@@ -62,6 +63,22 @@ export const store = new Vuex.Store({
     },
     saveTeacherNumber(state, number) {
       state.teacherNumber = number;
+      state.loadedArray.splice(0);
+      state.loadedArray.push(0);
+      state.loadedArray.push(0);
+      state.loadedArray.push(0);
+      state.loadedArray.push(0);
+      state.loadedArray.push(0);
+      state.loadedArray.push(0);
+      state.loadedArray.push(0);
+      state.loadedArray.push(0);
+      state.loadedArray.push(0);
+      state.loadedArray.push(0);
+    },
+    addloaded(state,index) {
+      //配列の書き方が違うね 配列の更新は全て完了しました
+      state.loadedArray.splice(index,1,1);
+      //一応増えていることは確認できた　問題は全て0にできるかだね　偶奇判定に持ち込むかむずい　
     }
   }
 })

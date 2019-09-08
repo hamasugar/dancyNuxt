@@ -21,6 +21,8 @@
         <div class="label__top">講師一覧</div>
         <div class="label__triangle"></div>
       </div>
+      <p>{{loadedArray}}</p>
+
 
       <div class="buttons" >
         <button  class="buttons__button" v-for="j in 100" v-on:click = "changeTeacher(j-1)" v-if="datum && datum[j*10 -10]">{{j}}</button>
@@ -29,12 +31,15 @@
       <div class="flexbox" v-if="datum">
 
           
-          <div class="flexbox__teacherbox"  v-for="value in datum.slice(teacherNumber1 * 10, Math.min(teacherNumber1 * 10 + 10, countss))" >
+          <div class="flexbox__teacherbox"  v-for="(value, index) in datum.slice(teacherNumber1 * 10, Math.min(teacherNumber1 * 10 + 10, countss))" >
 
-            <div class="teacher">
+            <div class="teacher" @click="goNext(value)">
                 <!-- <nuxt-link to="next"> -->
-                  <img class="teacher__img" v-bind:src="imgSrc(value['email'])" @click="goNext(value)">
-                  <!-- <img class="teacher__img" src=""> -->
+                  <img class="teacher__img" v-bind:src="imgSrc(value['email'])" v-on:load="loaded(index)" >
+                  <img class="teacher__noimg" src="/noImage.jpg" v-if="loadedArray[index] == 0">
+                  <!-- <p  v-if="loadedArray[index] == 0">読み込み中</p>
+                  <p  v-if="loadedArray[index] == 1">読み込み完了</p> -->
+
                   <p class="teacher__name">{{ value["nickName"] ? value["nickName"] + "先生" : "ゲスト講師"}}</p>
                   <p class="teacher__info">{{ '得意ジャンル:' + '\n'　 + value["able"] }}</p>
                   <p class="teacher__info">{{ 'レッスン料:' + value["money"] + "円/時" }}</p>
@@ -45,8 +50,7 @@
           
 
       </div>
-
-
+    
   </div>
       
       
@@ -84,7 +88,8 @@ var defaultObject = {
   computed: {
     countss() { return store.state.counts },
     datum() { return store.state.valueAll },
-    teacherNumber1() {return store.state.teacherNumber }
+    teacherNumber1() {return store.state.teacherNumber },
+    loadedArray() {return store.state.loadedArray }
   },
   mounted() {
 
@@ -111,9 +116,9 @@ var defaultObject = {
         this.total++;
       },
       changeTeacher: function(i) {
-        this.noImage = true;
+        // this.noImage = true;
         store.commit('saveTeacherNumber',i)
-        setTimeout(this.falseImage, 200);
+        // setTimeout(this.falseImage, 1000);
       },
       falseImage: function() {
         this.noImage = false;
@@ -141,6 +146,11 @@ var defaultObject = {
       },
       incvuex: function() {
         store.commit('increment')
+      },
+      loaded: function(index) {
+        console.log(index);
+        //noImageの画像で一回呼ばれているから2回に見えるだけ indexを取得したのでやっていこう
+        store.commit('addloaded', index)
       }
       
   }
@@ -153,12 +163,6 @@ export default defaultObject
 
 <style>
 .container {
-  /* margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center; */
   margin: 0 auto;
   width: 100%;
 }

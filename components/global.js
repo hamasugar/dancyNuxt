@@ -19,11 +19,9 @@ export const store = new Vuex.Store({
       state.value = value
     },
     registerAll(state, value) {
-      console.log("registerAll");
-      console.log(value);
+     
       state.counts = value.length;
-      console.log(value.length);
-      console.log(state)
+      
       state.valueAll.splice(0)
       //　配列の長さを帰るときはsetなどを使う必要があったかな
       for (var i = 0; i < value.length; i++) {
@@ -61,12 +59,9 @@ export const store = new Vuex.Store({
     },
     addpage(state) {
       state.pageTimes++;
-      console.log("addpage");
-      console.log(state.pageTimes)
     },
     saveTeacherNumber(state, number) {
       state.teacherNumber = number;
-      console.log(state);
     }
   }
 })

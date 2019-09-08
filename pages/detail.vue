@@ -5,42 +5,40 @@
       <p>{{remail}}</p>
       <p>{{able}}</p>
       <p>{{nickName}}</p> -->
+      <p class="topname">{{nickName}}先生</p>
       <div class="leftside">
-        <p class="leftside__name">{{nickName}}先生</p>
         <img class="leftside__img" v-bind:src="imgSrc(remail)">
        </div>
       <div class="rightside">
-          <div class="info">
+          <!-- <div class="info">
               <p class="info__key">アドレス</p>
               <p class="info__value">{{remail}}</p>
-          </div>
+          </div> -->
           <div class="info">
               <p class="info__key">ニックネーム</p>
               <p class="info__value">{{value["nickName"]}}</p>
           </div>
           <div class="info">
               <p class="info__key">レッスン料</p>
-              <p class="info__value">{{value["money"]}}</p>
+              <p class="info__value">{{value["money"] + "円/時"}}</p>
           </div>
           <div class="info">
               <p class="info__key">地域</p>
               <p class="info__value">{{value["live"]}}</p>
           </div>
+          <div class="info">
+              <p class="info__key">得意ジャンル</p>
+              <p class="info__value">{{value["able"]}}</p>
+          </div>
       </div>
       <p class="comment">{{value["comments"]}}</p>
-      <nuxt-link to="/">ホームへ</nuxt-link>
+      <nuxt-link to="/home" class="back">ホームへ</nuxt-link>
   </div>
 
 </template>
 
 <style>
 .container {
-  /* margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center; */
   margin: 0 auto;
   width: 100%;
 }

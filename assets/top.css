@@ -41,7 +41,7 @@ body {
       height: 40px;
       background-color: rgba(255, 136, 0, 0.8);
       border-radius: 5px;
-      font-size: 1vw;
+      font-size: 90%;
       color: white;
       line-height: 40px;
       text-align: center; }
@@ -55,35 +55,37 @@ body {
     .flexbox__teacherbox {
       background-color: rgba(211, 206, 197, 0.171);
       width: 16vw;
-      height: 37vw;
+      height: auto;
       margin-bottom: 30px;
+      padding-bottom: 20px;
       border: 1px solid black;
-      border-radius: 20px; }
+      border-radius: 2vw; }
     .flexbox__teacherbox:hover {
       background-color: rgba(255, 136, 0, 0.8); }
   
   .teacher__img {
     width: 100%;
     height: 16vw;
-    border-radius: 20px 20px 0 0;
+    border-radius: 2vw 2vw 0 0;
     object-fit: cover; }
   .teacher__name {
     font-weight: bold;
     margin-left: 2vw;
-    font-size: 1.5vw;
+    font-size: 20px;
     width: 80%;
-    margin-bottom: 40px; }
+    margin-bottom: 4vw;
+    margin-top: 1vw }
   .teacher__info {
     margin-left: 2vw;
-    font-size: 1vw;
-    line-height: 1vw;
+    font-size: 15px;
+    line-height: 1.5em;
     width: 80%;
     word-wrap: break-word; }
   
   @media all and (max-width: 700px) {
     .flexbox__teacherbox {
       width: 45%;
-      height: 65vw; }
+      }
       .teacher__img {
         height: 40vw; } }
   
@@ -92,7 +94,7 @@ body {
     display: inline-block;
   }
 
-  .leftside__name {
+  .topname {
     font-size: 30px;
     font-weight: bold;
     color: rgba(255, 136, 0, 0.8); 
@@ -110,7 +112,6 @@ body {
     display: inline-block;
     font-size: 0;
     vertical-align: top;
-    padding-top: 100px
   }
 
   .info {
@@ -121,13 +122,13 @@ body {
     display: inline-block;
     color: rgba(255, 136, 0, 0.8);
     font-weight: bold;
-    width: 30%;
+    width: 130px;
     font-size: 20px;
   }
 
   .info__value {
     display: inline-block;
-    width: 65%;
+    width: 60%;
     font-size: 20px;
     
   }
@@ -136,6 +137,33 @@ body {
     font-size: 18px;
     width: 100%;
     margin:30px auto;
+
+  }
+
+  .back {
+    display: block;
+    margin-bottom: 30px;
+  }
+
+  @media all and (max-width: 700px) {
+
+    .leftside {
+      display: block;
+      width: 70%;
+    }
+
+    .rightside {
+      display: block;
+      width: 90%;
+    }
+
+    .leftside__img {
+      height: 60vw;
+    }
+
+    .buttons {
+      width: 80%;
+    }
 
   }
   

@@ -1,6 +1,10 @@
 
 export default {
   mode: 'spa',
+  router: {
+    base: '/',// for base path
+    mode: 'hash'
+  },
   /*
   ** Headers of the page
   */
@@ -52,6 +56,7 @@ export default {
   ** Build configuration
   */
   build: {
+  //   publicPath: 'public/',
     /*
     ** You can extend webpack config here
     */

@@ -7,7 +7,9 @@
       <p>{{nickName}}</p> -->
       <p class="topname">{{nickName}}先生</p>
       <div class="leftside">
+        <p>
         <img class="leftside__img" v-bind:src="imgSrc(remail)">
+        </p>
        </div>
       <div class="rightside">
           <!-- <div class="info">

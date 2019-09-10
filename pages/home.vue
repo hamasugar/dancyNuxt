@@ -6,27 +6,14 @@
       <p v-if="total < 5">{{total}}</p>
       <like message="apple"  @inc="incrementTotal"/>
       <div></div>
-      <button @click="incvuex">+</button>
-      <p>{{ vuexx }}</p>
       <p>{{ counts }}</p> -->
       <!-- ここに表示されるものと下に表示されるものはワンテンポ遅れがある　こっちの方が遅れている リクエストでとってきたものが次の更新でpタグに入ってきている -->
-      <!-- <p>{{datum2}}</p>
-      <p>aaaa</p>
-      <p>aaaa</p>
-      <p>{{datum3}}</p>
-      <p>aaaa</p>
-      <p>aaaa</p>
-      <p>{{datum4}}</p> -->
       <div class="label">
         <div class="label__top">講師一覧</div>
         <div class="label__triangle"></div>
       </div>
-      <p>{{loadedArray}}</p>
 
-
-      <div class="buttons" >
-        <button  class="buttons__button" v-for="j in 100" v-on:click = "changeTeacher(j-1)" v-if="datum && datum[j*10 -10]">{{j}}</button>
-      </div>
+      <buttons/>
 
       <div class="flexbox" v-if="datum">
 
@@ -35,10 +22,10 @@
 
             <div class="teacher" @click="goNext(value)">
                 <!-- <nuxt-link to="next"> -->
+                  <p>
                   <img class="teacher__img" v-bind:src="imgSrc(value['email'])" v-on:load="loaded(index)" >
                   <img class="teacher__noimg" src="/noImage.jpg" v-if="loadedArray[index] == 0">
-                  <!-- <p  v-if="loadedArray[index] == 0">読み込み中</p>
-                  <p  v-if="loadedArray[index] == 1">読み込み完了</p> -->
+                  </p>
 
                   <p class="teacher__name">{{ value["nickName"] ? value["nickName"] + "先生" : "ゲスト講師"}}</p>
                   <p class="teacher__info">{{ '得意ジャンル:' + '\n'　 + value["able"] }}</p>
@@ -50,6 +37,7 @@
           
 
       </div>
+      <buttons/>
     
   </div>
       
@@ -60,36 +48,25 @@
 import Logo from '~/components/Logo.vue'
 import like from '~/components/Button.vue'
 import {store} from '~/components/global.js'
+import buttons from '~/components/TeacherButtons.vue'
 
 //exportのタイミングが悪いのかなー Swiftよりも難しいな
 var defaultObject = {
   components: {
     Logo,
-    like
+    like,
+    buttons
   },
   data: function() {
     return {
-      total: 10,
-      isFirstPage: true,
-      noImage: false,
-      vuex: 0,
-      datum2: store.state,
-      datum3: store.state.valueAll,
-      datum4: store.state["valueAll"]
-
+  
     }
   },
-  // watch: {
-  //   datum: function() {
-  //     //JavaSctiptに使われるlocalStrageがあれば最強じゃないか　iOSと同じ仕組みが作れるのだ
-  //     localStorage.setItem('datum', JSON.stringify(this.datum));
-  //   }
-  // },
   computed: {
     countss() { return store.state.counts },
-    datum() { return store.state.valueAll },
     teacherNumber1() {return store.state.teacherNumber },
-    loadedArray() {return store.state.loadedArray }
+    loadedArray() {return store.state.loadedArray },
+    datum() { return store.state.valueAll },
   },
   mounted() {
 
@@ -101,8 +78,13 @@ var defaultObject = {
         request.onload = function () {
           // request.this.datum = this.response
          
-          const aaaaa = this.response["Count"]
-          store.commit("registerAll",this.response["Items"])
+          var result = this.response["Items"];
+          result.sort(function(a,b){
+              if(a["score"] > b["score"]) return -1;
+              if(a["score"] < b["score"]) return 1;
+              return 0;
+          });       
+          store.commit("registerAll",result)
         };
 
         // request.send();
@@ -112,17 +94,6 @@ var defaultObject = {
         
   },
   methods: {
-      incrementTotal: function() {
-        this.total++;
-      },
-      changeTeacher: function(i) {
-        // this.noImage = true;
-        store.commit('saveTeacherNumber',i)
-        // setTimeout(this.falseImage, 1000);
-      },
-      falseImage: function() {
-        this.noImage = false;
-      },
       goNext: function(value) {
           // this.$router.push('next/?email  ='+email);
           //URLに表示されてしまうので隠す方法を知りたいね　これ以外の方法はないのか 
@@ -136,13 +107,8 @@ var defaultObject = {
           
       },
       imgSrc: function(email) {
-        if (this.noImage) {
-          return "/noImage.jpg";
-        }
-        else {
+        
           return "https://3l3lsb42w0.execute-api.us-east-2.amazonaws.com/dev/getimage?email=" + email + ".jpg";
-
-        }
       },
       incvuex: function() {
         store.commit('increment')

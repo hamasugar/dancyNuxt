@@ -3,7 +3,7 @@ export default {
   mode: 'spa',
   router: {
     base: '/',// for base path
-    mode: 'hash'
+    // mode: 'hash'
   },
   /*
   ** Headers of the page
@@ -16,7 +16,7 @@ export default {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/Dancy40.png' }
     ]
   },
   /*

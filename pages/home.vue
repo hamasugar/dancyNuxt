@@ -1,13 +1,7 @@
 <template>
   
   <div class="container">
-      <!-- <logo />
-      <p>{{teacherNumber}}</p>
-      <p v-if="total < 5">{{total}}</p>
-      <like message="apple"  @inc="incrementTotal"/>
-      <div></div>
-      <p>{{ counts }}</p> -->
-      <!-- ここに表示されるものと下に表示されるものはワンテンポ遅れがある　こっちの方が遅れている リクエストでとってきたものが次の更新でpタグに入ってきている -->
+      
       <div class="label">
         <div class="label__top">講師一覧</div>
         <div class="label__triangle"></div>
@@ -21,17 +15,15 @@
           <div class="flexbox__teacherbox"  v-for="(value, index) in datum.slice(teacherNumber1 * 10, Math.min(teacherNumber1 * 10 + 10, countss))" >
 
             <div class="teacher" @click="goNext(value)">
-                <!-- <nuxt-link to="next"> -->
                   <p>
-                  <img class="teacher__img" v-bind:src="imgSrc(value['email'])" v-on:load="loaded(index)" >
-                  <img class="teacher__noimg" src="/noImage.jpg" v-if="loadedArray[index] == 0">
+                  <img class="teacher__img" v-bind:src="imgSrc(value['email'])" v-on:load="loaded(index)" alt="講師画像">
+                  <img class="teacher__noimg" src="/noImage.jpg" v-if="loadedArray[index] == 0" alt="講師画像">
                   </p>
 
                   <p class="teacher__name">{{ value["nickName"] ? value["nickName"] + "先生" : "ゲスト講師"}}</p>
                   <p class="teacher__info">{{ '得意ジャンル:' + '\n'　 + value["able"] }}</p>
                   <p class="teacher__info">{{ 'レッスン料:' + value["money"] + "円/時" }}</p>
                   <p class="teacher__info">{{ "教える地域: " + "\n" + value["live"] }}</p>
-                <!-- </nuxt-link> -->
             </div>
           </div>
           
@@ -40,7 +32,6 @@
       <buttons/>
     
   </div>
-      
       
 </template>
 
@@ -101,9 +92,7 @@ var defaultObject = {
           //変更がされる前のaaaが次の画面から参照されている
           store.commit('addpage');
           store.commit('register',value);
-          // store.commit('saveTeacherNumber',this.teacherNumber)
-          // store.commit('registerAll',value);
-          this.$router.push('detail');
+          this.$router.push('../detail');
           
       },
       imgSrc: function(email) {
@@ -123,8 +112,6 @@ var defaultObject = {
 }
 //exportを必ず後に書かなくてはいけないよ　これがないとrenderできないと言うエラーが出る
 export default defaultObject
-
-
 </script>
 
 <style>

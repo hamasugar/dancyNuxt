@@ -12,10 +12,6 @@
         </p>
        </div>
       <div class="rightside">
-          <!-- <div class="info">
-              <p class="info__key">アドレス</p>
-              <p class="info__value">{{remail}}</p>
-          </div> -->
           <div class="info">
               <p class="info__key">ニックネーム</p>
               <p class="info__value">{{value["nickName"]}}</p>
@@ -64,6 +60,7 @@ export default {
       }
   },
   asyncData(context) {
+    //dataの代わりにこうするメリットって何だろう
       return {
       value: store.state.value,
       remail: store.state.value["email"],

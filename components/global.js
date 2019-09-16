@@ -7,6 +7,7 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
+    myEmail: "",
     value: [],
     valueAll:[],
     pageTimes: 0,
@@ -65,6 +66,12 @@ export const store = new Vuex.Store({
       //配列の書き方が違うね 配列の更新は全て完了しました
       state.loadedArray.splice(index,1,1);
       //一応増えていることは確認できた　問題は全て0にできるかだね　偶奇判定に持ち込むかむずい　
+    },
+    setMyemail: function(state, email) {
+        state.myEmail = email;
     }
   }
 })
+
+
+

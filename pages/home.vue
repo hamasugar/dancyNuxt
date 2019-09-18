@@ -67,7 +67,6 @@ var defaultObject = {
         request.open('GET',"https://3l3lsb42w0.execute-api.us-east-2.amazonaws.com/dev/teachershosting");
         request.responseType = 'json';
         request.onload = function () {
-          // request.this.datum = this.response
          
           var result = this.response["Items"];
           result.sort(function(a,b){

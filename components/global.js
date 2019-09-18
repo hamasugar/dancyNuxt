@@ -14,7 +14,13 @@ export const store = new Vuex.Store({
     counts: 0,
     teacherNumber: 0,
     loadedArray: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    apikey: "UMBUxUFV5w1afE1KbuGb3EjXAE2TmeR9Qo9vuFk8"
+    apikey: "UMBUxUFV5w1afE1KbuGb3EjXAE2TmeR9Qo9vuFk8",
+    config: {
+      headers: {
+          'Content-Type': 'application/json',
+          'X-Api-Key': "UMBUxUFV5w1afE1KbuGb3EjXAE2TmeR9Qo9vuFk8"
+      }
+    }
   },
   mutations: {
     increment: state => state.count++,

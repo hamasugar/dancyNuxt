@@ -30,7 +30,17 @@
           </div>
       </div>
       <p class="comment">{{value["comments"]}}</p>
-      <nuxt-link to="/home" class="back">ホームへ</nuxt-link>
+      
+
+      <div class="detailbuttons">
+        <button class="detailbuttons__home" @click="favorite()"><nuxt-link to="/home">ホームへ</nuxt-link></button>
+        
+        <button class="detailbuttons__favorite" @click="favorite()">あとで見る</button>
+        <button class="detailbuttons__apply" @click="apply()" v-if="!isFavorited">話を聞いてみたい</button>
+        <button class="detailbuttons__apply" @click="apply()" v-else>応募済み</button>
+
+      </div>
+
   </div>
 
 </template>
@@ -40,6 +50,60 @@
   margin: 0 auto;
   width: 100%;
 }
+
+.detailbuttons {
+    display: flex;
+    margin: 30px auto;
+    width: 90%;
+    height: 50px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between; }
+
+.detailbuttons__home {
+      display: block;
+      width: 200px;
+      height: 50px;
+      font-weight: bold;
+      color: rgba(255, 136, 0, 0.8);
+      border-radius: 25px;
+      font-size: 20px;
+      background-color: white;
+      line-height: 50px;
+      text-align: center;
+      border: 2px solid rgba(255, 136, 0, 0.8);
+}
+
+.detailbuttons__home a:visited {
+  color: rgba(255, 136, 0, 0.8);
+  text-decoration: none
+}
+
+.detailbuttons__favorite {
+      display: block;
+      width: 200px;
+      height: 50px;
+      font-weight: bold;
+      background-color: rgba(255, 136, 0, 0.8);
+      border-radius: 25px;
+      font-size: 20px;
+      color: white;
+      line-height: 50px;
+      text-align: center; }
+
+.detailbuttons__apply {
+      display: block;
+      width: 300px;
+      height: 50px;
+      font-weight: bold;
+      background-color: rgba(255, 136, 0, 0.8);
+      border-radius: 25px;
+      font-size: 20px;
+      color: white;
+      line-height: 50px;
+      text-align: center; }
+
+
 </style>
 
 
@@ -54,18 +118,52 @@ export default {
       
     }
   },
+  computed: {
+      isFavorited() {
+        if(true) {
+          return true
+        }
+        else {
+          return false
+        }
+      }
+  },
   methods: {
       imgSrc: function(email) {
         return "https://3l3lsb42w0.execute-api.us-east-2.amazonaws.com/dev/getimage?email=" + email + ".jpg";
-      }
+      },
+      favorite: function() {
+        //これはローカルストレージに保存しておきたい
+      },
+      apply: function() {
+        //apiと連携する
+      },
+      httprequest: function(url,data) {
+            console.log(url);
+            var request = new XMLHttpRequest();
+            request.open('POST', url);
+            request.responseType = 'json';
+            request.this = this
+            request.onload = function () {
+                request.this.modal = true
+            };
+            request.onerror = function() {
+                alert("エラーが発生しました");
+            }
+            
+            request.setRequestHeader('Content-Type', 'application/json' );
+            request.setRequestHeader("X-Api-Key", store.state.apikey);
+            
+            request.send(JSON.stringify(data));
+        }
   },
   asyncData(context) {
     //dataの代わりにこうするメリットって何だろう
       return {
-      value: store.state.value,
-      remail: store.state.value["email"],
-      able: store.state.value["able"],
-      nickName: store.state.value["nickName"]
+        value: store.state.value,
+        remail: store.state.value["email"],
+        able: store.state.value["able"],
+        nickName: store.state.value["nickName"]
     }
   }
 }

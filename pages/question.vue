@@ -1,6 +1,7 @@
 <template>
   
   <div class="container">
+    <navigation/>
       <div class="form">
         <p class="form__text">お問い合わせ・要望内容</p>
         <textarea v-model="text" class="form__area"></textarea>
@@ -18,17 +19,27 @@
 </template>
 
 <style>
+body {
+  width: 100%;
+  margin: 0 auto;
+}
+
 .container {
   margin: 0 auto;
   width: 100%;
+  font-size: 0px;
 }
 </style>
 
 <script>
 
 import {store} from "~/components/global.js";
+import navigation from '~/components/Navi.vue'
 
 export default {
+  components: {
+    navigation
+  },
   data: function() {
     return {
       text: "",

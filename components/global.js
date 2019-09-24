@@ -5,9 +5,21 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
+class Talk {
+
+  constructor(name, message, date, email, sender) {
+    this.name = name;
+    this.message = message;
+    this.date = date;
+    this.email = email;
+    this.sender = sender
+  }
+
+}
+
 export const store = new Vuex.Store({
   state: {
-    myEmail: "",
+    authUser: "",
     value: [],
     valueAll:[],
     pageTimes: 0,
@@ -20,11 +32,16 @@ export const store = new Vuex.Store({
           'Content-Type': 'application/json',
           'X-Api-Key': "UMBUxUFV5w1afE1KbuGb3EjXAE2TmeR9Qo9vuFk8"
       }
-    }
+    },
+    talkListArray: [new Talk("優奈先生", "こんにちは", "9月22日 1 1:00","yuna@gmail.com"),new Talk("田中先生", "こんばんは", "9月22日　13:00", "tanaka@gmail.com")],
+    talkDetailArray: [new Talk("優奈先生", "こんにちは", "9月22日 13:01","yuna@gmail.com","mymessage"),new Talk("田中先生", "こんばんは", "9月22日 13:02", "tanaka@gmail.com","yourmessage")]
   },
   mutations: {
     increment: state => state.count++,
-    register (state, value) {
+    register (state, value) {   
+      state.value = value
+    },
+    resetArray(state) {
       //初期化しないと戻った時に困る
       state.loadedArray.splice(0);
       state.loadedArray.push(0);
@@ -37,7 +54,6 @@ export const store = new Vuex.Store({
       state.loadedArray.push(0);
       state.loadedArray.push(0);
       state.loadedArray.push(0);
-      state.value = value
     },
     registerAll(state, value) {
      
@@ -74,7 +90,13 @@ export const store = new Vuex.Store({
       //一応増えていることは確認できた　問題は全て0にできるかだね　偶奇判定に持ち込むかむずい　
     },
     setMyemail: function(state, email) {
-        state.myEmail = email;
+        state.authUser = email;
+    },
+    fetchDetail: function(state, email) {
+      //stateのdetailArrayを操作する state.authUserを使いましょう　
+    },
+    sendMessage: function(state, email, message) {
+      //メッセージを送信
     }
   }
 })

@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
 import like from '~/components/Button.vue'
 import {store} from '~/components/global.js'
 import buttons from '~/components/TeacherButtons.vue'
@@ -44,7 +43,6 @@ import buttons from '~/components/TeacherButtons.vue'
 //exportのタイミングが悪いのかなー Swiftよりも難しいな
 var defaultObject = {
   components: {
-    Logo,
     like,
     buttons
   },
@@ -91,7 +89,10 @@ var defaultObject = {
           //変更がされる前のaaaが次の画面から参照されている
           store.commit('addpage');
           store.commit('register',value);
+          console.log("遷移前");
           this.$router.push('../detail');
+          console.log("遷移後")
+          store.commit('resetArray');
           
       },
       imgSrc: function(email) {
@@ -114,6 +115,9 @@ export default defaultObject
 </script>
 
 <style>
+
+
+
 .container {
   margin: 0 auto;
   width: 100%;

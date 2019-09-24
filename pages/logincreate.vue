@@ -1,28 +1,33 @@
 <template>
-    <div class="logincontainer">
-        <h2 class="loginLabel">
-            {{topText}}
-        </h2>
+    <div class="container">
+        <navigation/>
+            <div class="mainContents">
+            <div class="logincontainer">
+            <h2 class="loginLabel">
+                {{topText}}
+            </h2>
 
-        <div class="input">
-            <p class="input__label">メールアドレス</p>
-            <input type="text" class="input__email" v-model="email">
-            <p class="input__label">パスワード</p>
-            <input type="password" class="input__password" v-model="firstpassword">
-            <p class="input__label" v-if="perpose=='register'">パスワード(確認)</p>
-            <input type="password" class="input__password" v-model="secondpassword" v-if="perpose=='register'">
+            <div class="input">
+                <p class="input__label">メールアドレス</p>
+                <input type="text" class="input__email" v-model="email">
+                <p class="input__label">パスワード</p>
+                <input type="password" class="input__password" v-model="firstpassword">
+                <p class="input__label" v-if="perpose=='register'">パスワード(確認)</p>
+                <input type="password" class="input__password" v-model="secondpassword" v-if="perpose=='register'">
+            </div>
+
+            <div class="send">
+                <p class="send__alert">{{alert}}</p> 
+                <div class="send__button--normal" v-if="perpose=='register'" @click="register()" v-bind:disabled="alert!='a'">会員登録</div>
+                <div class="send__button--normal" v-if="perpose=='login'" @click="login()" v-bind:disabled="alert!='a'">ログイン</div>
+                <div class="send__button--change" v-if="perpose=='register'" @click="changePerpose('login')">ログイン画面へ</div>
+                <div class="send__button--change" v-if="perpose=='login'" @click="changePerpose('register')">会員登録画面へ</div>
+                <div class="send__button--change" v-if="person=='teacher'" @click="changePerson('student')">生徒として登録・ログイン</div>     
+                <div class="send__button--change" v-if="person=='student'" @click="changePerson('teacher')">講師として登録・ログイン</div>     
+            </div>
+            </div>
+
         </div>
-
-        <div class="send">
-            <p class="send__alert">{{alert}}</p> 
-            <div class="send__button--normal" v-if="perpose=='register'" @click="register()" v-bind:disabled="alert!='a'">会員登録</div>
-            <div class="send__button--normal" v-if="perpose=='login'" @click="login()" v-bind:disabled="alert!='a'">ログイン</div>
-            <div class="send__button--change" v-if="perpose=='register'" @click="changePerpose('login')">ログイン画面へ</div>
-            <div class="send__button--change" v-if="perpose=='login'" @click="changePerpose('register')">会員登録画面へ</div>
-            <div class="send__button--change" v-if="person=='teacher'" @click="changePerson('student')">生徒として登録・ログイン</div>     
-            <div class="send__button--change" v-if="person=='student'" @click="changePerson('teacher')">講師として登録・ログイン</div>     
-        </div>
-
      </div>
 
 </template>
@@ -30,8 +35,13 @@
 <script>
 //storeにemailを保存して置かなければならぬ md5が使えるでしょうが
 import {store} from '~/components/global.js'
+import navigation from '~/components/Navi.vue'
+
 
 export default {
+    components: {
+        navigation
+    },
     data: function() {
         return {
             person: "teacher",
@@ -101,7 +111,7 @@ export default {
     },
     methods: {
         register: function() {
-            this.$router.push('../home');
+            // this.$router.push('../home');
 
             if (this.alert != "") {
                 console.log("アラートあり");
@@ -164,6 +174,9 @@ export default {
     },
     head() {
         return {
+            bodyAttrs: {
+                class: 'club'
+            },
             script: [
                 {
                 src:
@@ -181,19 +194,32 @@ export default {
         .catch( error => {
             console.log(error);
         })
-    },
-    head: {
-        bodyAttrs: {
-        class: 'club'
-        }
-  }
+    }
 }
 </script>
 
 <style>
+
+body {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    font-size: 0px;
+}
+
+.mainContents {
+    display: inline-block;
+    width: calc(100% - 202px)
+}
+
 .logincontainer {
+  
   margin: 0 auto;
-  width: 560px;
+  width: 450px;
   background-color: white;
   border-radius: 20px;
   margin-top: 30px;
@@ -205,11 +231,11 @@ export default {
     background-size: cover;
 }
 
-@media all and (max-width: 700px) {
+/* @media all and (max-width: 700px) {
     .logincontainer {
         width: 90%
     }
-}
+} */
 
 
 .loginLabel {

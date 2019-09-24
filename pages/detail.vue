@@ -158,13 +158,22 @@ export default {
         }
   },
   asyncData(context) {
-    //dataの代わりにこうするメリットって何だろう
+    //dataの代わりにこうするメリットって何だろう 少し早い段階になるな
       return {
         value: store.state.value,
         remail: store.state.value["email"],
         able: store.state.value["able"],
         nickName: store.state.value["nickName"]
     }
+  },
+  fetch({ redirect }) {
+    console.log("detailをfetch")
+    if (store.state.authUser == "") {
+      redirect(301, '/logincreate');
+    }
+  },
+  nuxtServerInit ({ commit }, { req }) {
+    console.log("nuxtserverinit")
   }
 }
 </script>

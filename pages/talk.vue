@@ -30,8 +30,6 @@
         </div>    
     </div>
     </div>
-
-
 </template>
 
 <script>
@@ -47,24 +45,54 @@ export default {
   data: function() {
     return {
         inputMessage: "",
-        yourName: "優奈先生",
+        yourName: "",
         yourEmail: "",
     }
   },
   computed: {
     talkListArray() { return store.state.talkListArray },
-    talkDetailArray() {return store.state.talkDetailArray },
+    talkDetailArray() { return store.state.talkDetailArray },
+  },
+  watch: {
+      talkDetailArray: {
+        handler: function () {
+            //本来はpushの数だけ呼ばれるはずではないか？ 全ての変更が終わった後にようやくこの関数が呼ばれている
+            //　つまり描画される前にscrollが起きてしまっているのだ　すでに描画ずみの場合はうまくいっている
+            console.log("変更");
+            document.querySelectorAll('.talkDetail')[0].scrollTop = document.querySelectorAll('.talkDetail')[0].scrollHeight
+        },
+        deep: true
+      },
+      talkListArray: {
+        handler: function () {
+            this.yourName = store.state.talkListArray[0].name;
+            this.yourEmail = store.state.talkListArray[0].email;
+            store.commit('fetchDetail', store.state.talkListArray[0].email);
+        },
+        deep: true
+      }
   },
   methods: {
       changeTalk: function(email, name) {
           this.yourEmail = email;
           this.yourName = name;
+          store.state.talkDetailArray.splice(0)
           store.commit('fetchDetail',email);
       },
-      sendeMessage: function(email) {
+      sendMessage: function(youremail) {
+          if (this.inputMessage == "") {
+              console.log("テキストなし");
+              return
+          }
+          console.log(this.inputMessage);
+          const message = this.inputMessage;
           this.inputMessage = "";
-        //   store.commit('sendMessage',email, this.inputMessage);
-      } 
+          store.commit('sendMessage',{youremail: youremail, message: message});
+          
+      },
+  },
+  mounted() {
+        store.commit('fetchAllTalk');
   }
 }
 </script>
@@ -92,7 +120,7 @@ export default {
     .talkDetail {
         width: calc(100% - 455px);
         display: inline-block;
-        height: calc(100vh - 100px);
+        height: calc(100vh - 150px);
         margin-top: 50px;
         vertical-align: top;
         background-color: lightcyan;
@@ -132,7 +160,7 @@ export default {
     }
 
     .itemText__name {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 600;
         margin-top: 10px;
         margin-left: 10px;

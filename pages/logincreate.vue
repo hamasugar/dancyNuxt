@@ -3,9 +3,9 @@
         <navigation/>
             <div class="mainContents">
             <div class="logincontainer">
-            <h2 class="loginLabel">
+            <h1 class="loginLabel">
                 {{topText}}
-            </h2>
+            </h1>
 
             <div class="input">
                 <p class="input__label">メールアドレス</p>
@@ -241,6 +241,7 @@ body {
 .loginLabel {
     width: 90%;
     margin: 20px auto;
+    font-size: 25px;
 }
 
 .input {

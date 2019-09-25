@@ -4,11 +4,10 @@
         <div class="leftnavi__button" @click="goHome">講師一覧</div>
         <div class="leftnavi__button" @click="goQuestion">問い合わせ</div>
         <div class="leftnavi__button" @click="goTalk">トーク</div>
-        <div class="leftnavi__button" @click="goProfile">マイプロフィール</div>
         <div class="leftnavi__button" @click="goLessons">レッスン一覧</div>
         <div class="leftnavi__button" @click="goProfile">プロフィール編集</div>
-        <div class="leftnavi__button" @click="goLogin">ログイン</div>
-        <div class="leftnavi__button" @click="logout">ログアウト</div>
+        <div class="leftnavi__button" @click="goLogin" v-if="!isLogin()">ログイン</div>
+        <div class="leftnavi__button" @click="logout" v-if="isLogin()">ログアウト</div>
     </nav>
 </template>
 
@@ -35,7 +34,29 @@ import {store} from "~/components/global.js";
                 this.$router.push('../logincreate');
             },
             logout: function() {
-                alert("ログアウトします　よろしいですか？")
+                
+                var res = confirm("ログアウトします　よろしいですか？");
+                if( res == true ) {
+                   store.state.authUser = ""
+                   //ここでローカルストレージの処理をする
+                   this.$router.push('../home');
+                }
+                else {
+                }
+            },
+            goLessons: function() {
+
+            },
+            goProfile: function() {
+                
+            },
+            isLogin: function() {
+                if (store.state.authUser == "") {
+                    return false
+                }
+                else {
+                    return true
+                }
             }
         }
     }

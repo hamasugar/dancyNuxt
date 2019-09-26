@@ -9,7 +9,8 @@ body {
   .label {
     position: sticky;
     top: 0; 
-    z-index: 10
+    z-index: 10;
+    width: 100%;
     }
     .label__top {
       width: 100%;
@@ -64,7 +65,7 @@ body {
   }
     .flexbox__teacherbox {
       background-color: rgba(211, 206, 197, 0.171);
-      width: 16vw;
+      width: 17%;
       height: auto;
       margin-bottom: 30px;
       padding-bottom: 20px;

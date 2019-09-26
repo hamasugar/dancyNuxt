@@ -9,16 +9,18 @@
         <div class="leftnavi__button" @click="goLogin" v-if="!isLogin()">ログイン</div>
         <div class="leftnavi__button" @click="logout" v-if="isLogin()">ログアウト</div>
     </nav>
+    
 </template>
 
 <script lang="babel">
 
 import {store} from "~/components/global.js";
 
-    export default {
-        
+
+    export default {      
         data: function() {
-            return {}
+            return {
+            }
         },
         methods: {
             goHome: function() {
@@ -38,7 +40,9 @@ import {store} from "~/components/global.js";
                 var res = confirm("ログアウトします　よろしいですか？");
                 if( res == true ) {
                    store.state.authUser = ""
-                   //ここでローカルストレージの処理をする
+                   localStorage.removeItem("useremail")
+                   sessionStorage.removeItem("useremail");
+                   //ここでセッションストレージの処理をする
                    this.$router.push('../home');
                 }
                 else {
@@ -48,7 +52,11 @@ import {store} from "~/components/global.js";
 
             },
             goProfile: function() {
-                
+                if (store.state.authUser) {
+                    if (store.state.authUser != "") {
+                        store.state.showprofileEdit = true
+                    }
+                }
             },
             isLogin: function() {
                 if (store.state.authUser == "") {

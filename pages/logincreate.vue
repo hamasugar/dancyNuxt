@@ -111,7 +111,6 @@ export default {
     },
     methods: {
         register: function() {
-            // this.$router.push('../home');
 
             if (this.alert != "") {
                 console.log("アラートあり");
@@ -161,6 +160,10 @@ export default {
                 }
                 
                 store.commit("setMyemail", this.email) ;
+                //　ストアとセッションストレージは自動で連動されるらしい
+                let localdata = {}
+                localdata["authUser"]= this.email
+                localStorage.setItem("useremail", JSON.stringify(localdata))
                 this.email = "";
                 this.firstpassword = "";
                 this.secondpassword = "";
@@ -186,14 +189,7 @@ export default {
         }
     },
     mounted() {
-        const response = this.$axios.$get("https://3l3lsb42w0.execute-api.us-east-2.amazonaws.com/dev/teachershosting")
-        .then( response => {
-            console.log(response);
-            console.log(this.person);
-        })
-        .catch( error => {
-            console.log(error);
-        })
+        
     }
 }
 </script>
@@ -293,6 +289,7 @@ body {
 }
 
 .send__alert {
+    font-size: 10px;
     color: red;
 }
 

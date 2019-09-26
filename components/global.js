@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import createPersistedState from "vuex-persistedstate";
+
 Vue.use(Vuex)
 
 class Talk {
@@ -14,8 +16,13 @@ class Talk {
 }
 
 export const store = new Vuex.Store({
+  plugins: [createPersistedState({
+    key: 'useremail',
+    paths: ['authUser'],
+    storage: window.sessionStorage,
+  })],
   state: {
-    authUser: "hamazi511@gmail.com",
+    authUser: "",
     imTeacher: false,
     value: [],
     valueAll:[],
@@ -24,6 +31,7 @@ export const store = new Vuex.Store({
     teacherNumber: 0,
     loadedArray: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     apikey: "UMBUxUFV5w1afE1KbuGb3EjXAE2TmeR9Qo9vuFk8",
+    awsURL: "https://3l3lsb42w0.execute-api.us-east-2.amazonaws.com/dev/",
     config: {
       headers: {
           'Content-Type': 'application/json',
@@ -31,7 +39,11 @@ export const store = new Vuex.Store({
       }
     },
     talkListArray: [],
-    talkDetailArray: []
+    talkDetailArray: [],
+    HomeViewCount: 0,
+    LessonViewCount: 0,
+    TalkViewCount: 0,
+    showprofileEdit: false,
   },
   mutations: {
     increment: state => state.count++,

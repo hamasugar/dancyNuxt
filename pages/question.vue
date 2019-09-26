@@ -77,6 +77,9 @@ export default {
           this.modal = false
       }
 
+  },
+  mounted() {
+    console.log(localStorage.getItem("useremail"))
   }
 }
 </script>

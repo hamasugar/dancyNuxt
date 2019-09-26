@@ -2,6 +2,8 @@
   
   <div class="container">
       
+      <navigation/>
+      <div class="homemain">
       <div class="label">
         <div class="label__top">講師一覧</div>
         <div class="label__triangle"></div>
@@ -9,9 +11,7 @@
 
       <buttons/>
 
-      <div class="flexbox" v-if="datum">
-
-          
+      <div class="flexbox" v-if="datum">         
           <div class="flexbox__teacherbox"  v-for="(value, index) in datum.slice(teacherNumber1 * 10, Math.min(teacherNumber1 * 10 + 10, countss))" >
 
             <div class="teacher" @click="goNext(value)">
@@ -30,7 +30,8 @@
 
       </div>
       <buttons/>
-    
+      </div>
+      <profileEdit v-if="showprofileEdit"/>
   </div>
       
 </template>
@@ -39,12 +40,16 @@
 import like from '~/components/Button.vue'
 import {store} from '~/components/global.js'
 import buttons from '~/components/TeacherButtons.vue'
+import navigation from '~/components/Navi.vue'
+import profileEdit from '~/components/ProfileEdit.vue'
 
 //exportのタイミングが悪いのかなー Swiftよりも難しいな
 var defaultObject = {
   components: {
     like,
-    buttons
+    buttons,
+    navigation,
+    profileEdit,
   },
   data: function() {
     return {
@@ -56,9 +61,22 @@ var defaultObject = {
     teacherNumber1() {return store.state.teacherNumber },
     loadedArray() {return store.state.loadedArray },
     datum() { return store.state.valueAll },
+    showprofileEdit() { return store.state.showprofileEdit }
   },
   mounted() {
+    if (JSON.parse(localStorage.getItem("useremail"))) {
+      const object = JSON.parse(localStorage.getItem("useremail"))
+        if (object["authUser"]) {
+          store.state.authUser = object["authUser"]
+        }
+    }
+    
+    if (store.state.HomeViewCount > 0) {
+      return
+    }
 
+    store.state.HomeViewCount+=1
+    //他の画面から戻ってきたときに呼ばれるのでカウントしておく必要がある　もう一度呼ぶのは面倒すぎる
     var request = new XMLHttpRequest();
         
         request.this = this
@@ -68,9 +86,7 @@ var defaultObject = {
          
           var result = this.response["Items"];
           result.sort(function(a,b){
-              if(a["score"] > b["score"]) return -1;
-              if(a["score"] < b["score"]) return 1;
-              return 0;
+              return (a["score"] > b["score"]) ? -1 : 1
           });       
           store.commit("registerAll",result)
         };
@@ -95,8 +111,7 @@ var defaultObject = {
           store.commit('resetArray');
           
       },
-      imgSrc: function(email) {
-        
+      imgSrc: function(email) {   
           return "https://3l3lsb42w0.execute-api.us-east-2.amazonaws.com/dev/getimage?email=" + email + ".jpg";
       },
       incvuex: function() {
@@ -116,11 +131,25 @@ export default defaultObject
 
 <style>
 
-
+body {
+    width: 100%;
+    margin: 0 auto; }
 
 .container {
   margin: 0 auto;
   width: 100%;
+  font-size: 0;
+}
+
+.leftnavi {
+  position: sticky;
+  top: 0px;
+}
+
+.homemain {
+  display: inline-block;
+  font-size: 0;
+  width: calc(100% - 205px);
 }
 
 .title {

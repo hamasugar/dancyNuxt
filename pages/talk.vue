@@ -65,9 +65,11 @@ export default {
       },
       talkListArray: {
         handler: function () {
-            this.yourName = store.state.talkListArray[0].name;
-            this.yourEmail = store.state.talkListArray[0].email;
-            store.commit('fetchDetail', store.state.talkListArray[0].email);
+            if ( store.state.talkListArray[0].name && store.state.talkListArray[0].email) {
+                this.yourName = store.state.talkListArray[0].name;
+                this.yourEmail = store.state.talkListArray[0].email;
+                store.commit('fetchDetail', store.state.talkListArray[0].email);
+            }  
         },
         deep: true
       }
@@ -92,6 +94,16 @@ export default {
       },
   },
   mounted() {
+      if (store.state.authUser == "") {
+          this.$router.push('../logincreate');
+          return
+      }
+
+      if (store.state.TalkViewCount > 0) {
+        return
+      }
+        
+        store.state.HomeViewCount+=1
         store.commit('fetchAllTalk');
   }
 }
@@ -221,6 +233,7 @@ export default {
         height: auto;
         margin-top: 20px;
         align-items: flex-end;
+        margin-bottom: 10px;
     }
 
     .mymessage {
@@ -231,6 +244,7 @@ export default {
         height: auto;
         margin-top: 20px;
         align-items: flex-end;
+        margin-bottom: 10px
     }
 
     .mymessage__text {

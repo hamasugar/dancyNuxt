@@ -17,8 +17,9 @@
 
 
     <div class="talkDetail">
-        <div class="yourName">
-            <p class="yourName__label">{{yourName}}</p>
+        <div class="talkfixed">
+            <p class="talkfixed__yourname">{{yourName}}</p>
+            <button class="talkfixed__reserve" @click="reserve">新規予約</button>
         </div>
         <div v-bind:class="value.sender" v-for="(value, index) in talkDetailArray">
             <p v-bind:class="value.sender + '__text'">{{value.message}}</p>
@@ -29,6 +30,7 @@
             <button class="sendText__button" @click="sendMessage(yourEmail)">送信</button>
         </div>    
     </div>
+    <reserve :yourName = yourName v-if="showReserve"/>
     </div>
 </template>
 
@@ -36,11 +38,13 @@
 
 import {store} from "~/components/global.js";
 import navigation from '~/components/Navi.vue'
+import reserve from '~/components/Reserve.vue'
 
 
 export default {
   components: {
-      navigation
+      navigation,
+      reserve,
   },
   data: function() {
     return {
@@ -52,6 +56,7 @@ export default {
   computed: {
     talkListArray() { return store.state.talkListArray },
     talkDetailArray() { return store.state.talkDetailArray },
+    showReserve() { return store.state.showReserve },
   },
   watch: {
       talkDetailArray: {
@@ -92,6 +97,9 @@ export default {
           store.commit('sendMessage',{youremail: youremail, message: message});
           
       },
+      reserve: function() {
+          store.state.showReserve = true;
+      }
   },
   mounted() {
       if (store.state.authUser == "") {
@@ -196,24 +204,36 @@ export default {
         transform: translate(-50%, -50%);
     }
 
-    .yourName {
+    .talkfixed {
         position: fixed;
         width: calc(100% - 455px);
         top: 0;
         left: auto;
-        height: 60px;
+        height: 50px;
         background-color: white;
         border-bottom: 1px solid black;
+        display: flex;
+        justify-content: space-between;
     }
 
-    .yourName__label {
+    .talkfixed__yourname {
         font-size: 30px;
-        font-weight: left;
         text-align: left;
         margin-left: 20px;
         line-height: 30px;
         padding: 10px;
         font-weight: bold;
+    }
+
+    .talkfixed__reserve {
+        font-size: 20px;
+        text-align: center;
+        margin: 5px 20px;
+        height: 40px;
+        background-color: orange;
+        color: white;
+        font-weight: bold;
+        border-radius: 5px;
     }
 
     .talkDetail__item {
@@ -253,7 +273,7 @@ export default {
         max-width: 70%;
         width: auto;
         border-radius: 10px;
-        background-color: lightgreen;
+        background-color: rgb(134, 227, 75);
     }
 
     .yourmessage__text {

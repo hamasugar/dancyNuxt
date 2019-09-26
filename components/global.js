@@ -44,6 +44,7 @@ export const store = new Vuex.Store({
     LessonViewCount: 0,
     TalkViewCount: 0,
     showprofileEdit: false,
+    showReserve: false,
   },
   mutations: {
     increment: state => state.count++,

@@ -1,30 +1,32 @@
 <template>
     <div class="container">
-        <navigation/>
+        <navigation v-bind:class="showNavi"/>
             <div class="mainContents">
             <div class="logincontainer">
             <h1 class="loginLabel">
                 {{topText}}
             </h1>
 
+            <form v-on:submit.prevent="login">
             <div class="input">
                 <p class="input__label">メールアドレス</p>
-                <input type="text" class="input__email" v-model="email">
+                <input type="text" class="input__email" v-model="email" name="email">
                 <p class="input__label">パスワード</p>
-                <input type="password" class="input__password" v-model="firstpassword">
+                <input type="password" class="input__password" v-model="firstpassword" name="password">
                 <p class="input__label" v-if="perpose=='register'">パスワード(確認)</p>
                 <input type="password" class="input__password" v-model="secondpassword" v-if="perpose=='register'">
             </div>
 
             <div class="send">
                 <p class="send__alert">{{alert}}</p> 
-                <div class="send__button--normal" v-if="perpose=='register'" @click="register()" v-bind:disabled="alert!='a'">会員登録</div>
-                <div class="send__button--normal" v-if="perpose=='login'" @click="login()" v-bind:disabled="alert!='a'">ログイン</div>
+                <button type="submit" class="send__button--normal" v-if="perpose=='register'">会員登録</button>
+                <button type="submit" class="send__button--normal" v-if="perpose=='login'">ログイン</button>
                 <div class="send__button--change" v-if="perpose=='register'" @click="changePerpose('login')">ログイン画面へ</div>
                 <div class="send__button--change" v-if="perpose=='login'" @click="changePerpose('register')">会員登録画面へ</div>
                 <div class="send__button--change" v-if="person=='teacher'" @click="changePerson('student')">生徒として登録・ログイン</div>     
                 <div class="send__button--change" v-if="person=='student'" @click="changePerson('teacher')">講師として登録・ログイン</div>     
             </div>
+            </form>
             </div>
 
         </div>
@@ -52,6 +54,7 @@ export default {
         }
     },
     computed: {
+        showNavi() { return store.state.showNavi },
         topText(){
             if (this.person=="teacher" && this.perpose=="register") {
                 return "講師新規登録"
@@ -129,6 +132,7 @@ export default {
             
         },
         login: function() {
+            console.log("login")
             //APIManegerを使った方がいい説が出てきたな
             if (this.alert != "") {
                 console.log("アラートあり");

@@ -182,10 +182,15 @@ body {
     margin-bottom: 30px;
   }
 
-  .form {
-    width: calc(100% - 300px);
+  .mainQuestion {
+    width: calc(100% - 205px);
     display: inline-block;
-    margin: 20px 40px 0px 40px;
+    margin: 0 auto;
+  }
+
+  .form {
+      width: calc(100% - 100px);
+      margin: 30px auto;
   }
 
   .form__text {

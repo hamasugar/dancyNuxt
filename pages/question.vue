@@ -1,19 +1,23 @@
 <template>
   
   <div class="container">
+    
     <navigation/>
-      <div class="form">
+      <div class="mainQuestion">
+        <div class="form">
         <p class="form__text">お問い合わせ・要望内容</p>
         <textarea v-model="text" class="form__area"></textarea>
         <button class="form__button" @click="sendText()">送信</button>
+        </div>
       </div>
-      <p>{{text}}</p>
 
       <div class="modal" v-if="modal">
         <p class="modal__title">お問い合わせが完了しました</p>
         <button class="modal__button" @click="closeModal()">閉じる</button>     
       </div>
+      <menuButton/>
       <div class="bg" v-if="modal"></div>
+      
   </div>
            
 </template>
@@ -35,10 +39,12 @@ body {
 
 import {store} from "~/components/global.js";
 import navigation from '~/components/Navi.vue'
+import menuButton from '~/components/MenuButton.vue'
 
 export default {
   components: {
-    navigation
+    navigation,
+    menuButton
   },
   data: function() {
     return {

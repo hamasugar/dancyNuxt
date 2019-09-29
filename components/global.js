@@ -45,6 +45,7 @@ export const store = new Vuex.Store({
     TalkViewCount: 0,
     showprofileEdit: false,
     showReserve: false,
+    showNavi: "hidenavi",
   },
   mutations: {
     increment: state => state.count++,
@@ -71,6 +72,15 @@ export const store = new Vuex.Store({
     },
     addpage(state) {
       state.pageTimes++;
+    },
+    toggleNavigation(state) {
+      console.log(state.showNavi)
+      if (state.showNavi == "shownavi") {
+        state.showNavi = "hidenavi"
+      }
+      else {
+        state.showNavi = "shownavi"
+      }
     },
     saveTeacherNumber(state, number) {
       state.teacherNumber = number;

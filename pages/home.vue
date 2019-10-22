@@ -141,11 +141,6 @@ body {
   font-size: 0;
 }
 
-.leftnavi {
-  position: sticky;
-  top: 0px;
-}
-
 .homemain {
   display: inline-block;
   font-size: 0;

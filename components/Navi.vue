@@ -88,29 +88,33 @@ import {store} from "~/components/global.js";
         display: inline-block;
         vertical-align: top;
         height: 100vh;
-        transition: all 300ms 0s ease;
+        z-index: 1000;
+        top: 0px;
+        left: 0px;
+        position: sticky
     }
 
     @media all and (max-width: 700px) {
 
-        .shownavi {
-            position: relative;
-            right: 0px;
-            z-index: 100;
-        }
-
-        .hidenavi {
-            position: relative;
-            right: 200px;
-        }
+    .leftnavi {
+        transition: all 300ms 0s ease;
+        transform: translate(0px);
+        position: fixed;
+        top: 0px;
+        left: -200px;
+    }
 
         .leftnavi + div {
             width: calc(100% - 5px);
-            position: fixed;
-            top: 0;
-            left: 0;
         }
 
+        .shownavi {
+            transform: translate(200px);
+        }
+
+        .hidenavi {
+            transform: translate(0px);
+        }
     };
 
     .leftnavi__top {

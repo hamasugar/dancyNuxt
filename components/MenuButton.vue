@@ -34,6 +34,7 @@ export default {
     width: 40px;
     display: inline-block;
     box-sizing: border-box;
+    z-index: 900;
   }
 
   .menuButton div {

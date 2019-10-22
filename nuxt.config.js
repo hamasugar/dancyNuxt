@@ -4,6 +4,16 @@ export default {
   router: {
     base: '/',// for base path
     // mode: 'hash'
+    extendRoutes(routes, resolve) {
+      routes.push({
+        path     : '/index.html',
+        alias    : '/',
+        component: resolve(__dirname, 'pages/index.vue')
+      })
+    }
+  },
+  generate: {
+    subFolders: false
   },
   /*
   ** Headers of the page

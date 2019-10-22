@@ -1,10 +1,6 @@
 <template>
   
   <div class="container">
-      <!-- <p>aa</p>
-      <p>{{remail}}</p>
-      <p>{{able}}</p>
-      <p>{{nickName}}</p> -->
       <p class="topname">{{nickName}}先生</p>
       <div class="leftside">
         <p>
@@ -33,7 +29,7 @@
       
 
       <div class="detailbuttons">
-        <button class="detailbuttons__home" @click="favorite()"><nuxt-link to="/home">ホームへ</nuxt-link></button>
+        <button class="detailbuttons__home" @click="favorite()"><nuxt-link to="/">ホームへ</nuxt-link></button>
         
         <button class="detailbuttons__favorite" @click="favorite()">あとで見る</button>
         <button class="detailbuttons__apply" @click="apply()" v-if="!isFavorited">話を聞いてみたい</button>
@@ -168,9 +164,9 @@ export default {
   },
   fetch({ redirect }) {
     console.log("detailをfetch")
-    if (store.state.authUser == "") {
-      redirect(301, '/logincreate');
-    }
+    // if (store.state.authUser == "") {
+    //   redirect(301, '/logincreate');
+    // }
   },
   nuxtServerInit ({ commit }, { req }) {
     console.log("nuxtserverinit")

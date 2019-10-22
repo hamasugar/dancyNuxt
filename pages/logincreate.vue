@@ -171,7 +171,7 @@ export default {
                 this.email = "";
                 this.firstpassword = "";
                 this.secondpassword = "";
-                this.$router.push('../home');
+                this.$router.push('../');
             })
             .catch( error => {
                 alert("エラーが発生しました")

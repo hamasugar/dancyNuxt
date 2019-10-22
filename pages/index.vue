@@ -102,15 +102,9 @@ var defaultObject = {
   },
   methods: {
       goNext: function(value) {
-          // this.$router.push('next/?email  ='+email);
-          //URLに表示されてしまうので隠す方法を知りたいね　これ以外の方法はないのか 
-          //確実にteacherNameはグローバルを参照している　ローカルではない　変更もしているのになぜかーーー
-          //変更がされる前のaaaが次の画面から参照されている
           store.commit('addpage');
           store.commit('register',value);
-          console.log("遷移前");
           this.$router.push('../detail');
-          console.log("遷移後")
           store.commit('resetArray');
           
       },

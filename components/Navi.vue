@@ -31,7 +31,7 @@ import {store} from "~/components/global.js";
         },
         methods: {
             goHome: function() {
-                this.$router.push('../home');
+                this.$router.push('../index.html');
             },
             goQuestion: function() {
                 this.$router.push('../question');
@@ -50,7 +50,7 @@ import {store} from "~/components/global.js";
                    localStorage.removeItem("useremail")
                    sessionStorage.removeItem("useremail");
                    //ここでセッションストレージの処理をする
-                   this.$router.push('../home');
+                   this.$router.push('../');
                 }
                 else {
                 }

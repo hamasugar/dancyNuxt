@@ -157,21 +157,22 @@ export default {
 
             const response = this.$axios.$post(url, data, store.state.config)
             .then( response => {
-
+                console.log(response)
                 if (response.errorMessage) {
                     alert("パスワードが違います")
                     return
                 }
                 
                 store.commit("setMyemail", this.email) ;
-                //　ストアとセッションストレージは自動で連動されるらしい
+                //　ストアとセッションストレージは自動で連動されるらしい(ライブラリを使えば))
                 let localdata = {}
                 localdata["authUser"]= this.email
+                localdata["accessToken"] = response
                 localStorage.setItem("useremail", JSON.stringify(localdata))
                 this.email = "";
                 this.firstpassword = "";
                 this.secondpassword = "";
-                this.$router.push('../');
+                this.$router.push('../index.html');
             })
             .catch( error => {
                 alert("エラーが発生しました")
@@ -219,7 +220,8 @@ body {
 .logincontainer {
   
   margin: 0 auto;
-  width: 450px;
+  width: 90%;
+  max-width: 500px;
   background-color: white;
   border-radius: 20px;
   margin-top: 30px;
@@ -230,12 +232,6 @@ body {
     background-image: url('/club.jpg');
     background-size: cover;
 }
-
-/* @media all and (max-width: 700px) {
-    .logincontainer {
-        width: 90%
-    }
-} */
 
 
 .loginLabel {

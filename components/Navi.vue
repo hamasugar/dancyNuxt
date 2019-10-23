@@ -50,7 +50,7 @@ import {store} from "~/components/global.js";
                    localStorage.removeItem("useremail")
                    sessionStorage.removeItem("useremail");
                    //ここでセッションストレージの処理をする
-                   this.$router.push('../');
+                   this.$router.push('../index.html');
                 }
                 else {
                 }

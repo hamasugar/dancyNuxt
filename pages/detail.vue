@@ -56,14 +56,16 @@
     flex-wrap: nowrap;
     justify-content: space-between; }
 
+   
+
 .detailbuttons__home {
       display: block;
-      width: 200px;
+      width: 30%;
       height: 50px;
       font-weight: bold;
+      font-size: 20px;
       color: rgba(255, 136, 0, 0.8);
       border-radius: 25px;
-      font-size: 20px;
       background-color: white;
       line-height: 50px;
       text-align: center;
@@ -77,27 +79,35 @@
 
 .detailbuttons__favorite {
       display: block;
-      width: 200px;
+      width: 30%;
       height: 50px;
+      font-size: 20px;
       font-weight: bold;
       background-color: rgba(255, 136, 0, 0.8);
       border-radius: 25px;
-      font-size: 20px;
       color: white;
       line-height: 50px;
       text-align: center; }
 
 .detailbuttons__apply {
       display: block;
-      width: 300px;
+      width: 30%;
+      font-size: 20px;
       height: 50px;
       font-weight: bold;
       background-color: rgba(255, 136, 0, 0.8);
       border-radius: 25px;
-      font-size: 20px;
       color: white;
       line-height: 50px;
       text-align: center; }
+
+  @media all and (max-width: 700px) {
+
+    .detailbuttons > button {
+      font-size: 4vw;
+    }
+
+   } 
 
 
 </style>

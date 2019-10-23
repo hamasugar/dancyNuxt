@@ -31,6 +31,7 @@
         </div>    
     </div>
     <reserve :yourName = yourName v-if="showReserve"/>
+    <profileEdit v-if="showprofileEdit"/>
     </div>
 </template>
 
@@ -39,12 +40,14 @@
 import {store} from "~/components/global.js";
 import navigation from '~/components/Navi.vue'
 import reserve from '~/components/Reserve.vue'
+import profileEdit from '~/components/ProfileEdit.vue'
 
 
 export default {
   components: {
       navigation,
       reserve,
+      profileEdit,
   },
   data: function() {
     return {
@@ -57,6 +60,7 @@ export default {
     talkListArray() { return store.state.talkListArray },
     talkDetailArray() { return store.state.talkDetailArray },
     showReserve() { return store.state.showReserve },
+    showprofileEdit() { return store.state.showprofileEdit }
   },
   watch: {
       talkDetailArray: {

@@ -55,8 +55,8 @@ import {store} from "~/components/global.js";
                 const response = this.$axios.$post(url, data, store.state.config)
                 .then( response => {
 
-                    if (response.errorMessage) {
-                        alert(response.errorMessage)
+                    if (response.data.errorMessage) {
+                        alert(response.data.errorMessage)
                         return
                     }
                     alert("送信が完了しました")

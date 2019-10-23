@@ -125,6 +125,7 @@ body {
   .leftside {
     width: 40%;
     display: inline-block;
+    margin-left: 5%;
     margin-bottom: 30px
   }
 
@@ -132,7 +133,8 @@ body {
     font-size: 30px;
     font-weight: bold;
     color: rgba(255, 136, 0, 0.8); 
-    margin: 20px auto
+    margin: 20px auto;
+    width: 90%;
   }
 
   .leftside__img {
@@ -142,11 +144,11 @@ body {
   }
 
   .rightside {
-    width: 55%;
+    width: 40%;
     display: inline-block;
     font-size: 0;
     vertical-align: top;
-    margin-bottom: 30px;
+    margin: 30px 5%;
   }
 
   .info {
@@ -170,7 +172,7 @@ body {
 
   .comment {
     font-size: 18px;
-    width: 100%;
+    width: 90%;
     margin-bottom: 30px;
     margin-left: auto;
     margin-right: auto

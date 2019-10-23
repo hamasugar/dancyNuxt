@@ -4,14 +4,18 @@
     <div class="reservemodal">
     
         <div class="fixed">
-            <p class="fixed__title">新規予約({{yourName}}先生)</p>
+            <p class="fixed__title">新規予約({{yourName}})</p>
             <button class="fixed__save" @click="reserve">予約</button>
         </div>
         
         <div class="reservemodal__contents">
            <div class="inputs">
-               <p class="inputs__text">金額</p>
+               <p class="inputs__text">レッスン料</p>
                <input type="number" class="inputs__input" v-model="money">
+               <p class="inputs__text">スタジオ代他</p>
+               <input type="number" class="inputs__input" v-model="money">
+               <p class="inputs__text">日時</p>
+
             </div> 
         </div>
     </div>
@@ -46,8 +50,8 @@ import {store} from "~/components/global.js";
                 // const response = this.$axios.$post(url, data, store.state.config)
                 // .then( response => {
 
-                //     if (response.errorMessage) {
-                //         alert(response.errorMessage)
+                //     if (response.data.errorMessage) {
+                //         alert(response.data.errorMessage)
                 //         return
                 //     }
                 //     alert("送信が完了しました")
@@ -133,7 +137,7 @@ import {store} from "~/components/global.js";
     font-weight: bold;
 }
 
-.editmodal__contents {
+.reservemodal__contents {
     position: relative;
     top: 80px;
     z-index: 20;

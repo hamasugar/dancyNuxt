@@ -104,15 +104,19 @@ export const store = new Vuex.Store({
       url += "email1=" + state.authUser
       url +=  "&email2=" + youremail
       url += "&imTeacher=false"
+      url += "&myEmail=" + JSON.parse(localStorage["useremail"])["authUser"]
+      url += "&accessToken=" + JSON.parse(localStorage["useremail"])["accessToken"]
       console.log(url);
 
       const response = axios.get(url, store.state.config)
           .then( response => {
 
-              if (response.errorMessage) {
-                  alert("エラーが発生しました");
+              if (response.data.errorMessage) {
+                  console.log("aaa");
+                  alert("閲覧する権限がありません");
                   return
               }
+              
 
               const data = response.data;
               for (var i = 0; i < data.length; i++) {
@@ -131,7 +135,8 @@ export const store = new Vuex.Store({
 
           })
           .catch( error => {
-              alert("エラーが発生しました")
+            console.log("bbb");
+                  alert("閲覧する権限がありません");
           })
       
     },
@@ -143,7 +148,7 @@ export const store = new Vuex.Store({
       const response = axios.get(url, store.state.config)
       .then( response => {
 
-          if (response.errorMessage) {
+          if (response.data.errorMessage) {
               alert("エラーが発生しました");
               return
           }
@@ -186,7 +191,7 @@ export const store = new Vuex.Store({
 
       const response = axios.post(url, parameter, store.state.config)
       .then( response => {
-          if (response.errorMessage) {
+          if (response.data.errorMessage) {
               alert("エラーが発生しました");
               return
           }

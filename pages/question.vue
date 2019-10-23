@@ -17,6 +17,7 @@
       </div>
       <menuButton/>
       <div class="bg" v-if="modal"></div>
+      <profileEdit v-if="showprofileEdit"/>
       
   </div>
            
@@ -40,17 +41,23 @@ body {
 import {store} from "~/components/global.js";
 import navigation from '~/components/Navi.vue'
 import menuButton from '~/components/MenuButton.vue'
+import profileEdit from '~/components/ProfileEdit.vue'
+
 
 export default {
   components: {
     navigation,
-    menuButton
+    menuButton,
+    profileEdit
   },
   data: function() {
     return {
       text: "",
       modal: false
     }
+  },
+  computed: {
+    showprofileEdit() { return store.state.showprofileEdit }
   },
   methods: {
       sendText: function() {
